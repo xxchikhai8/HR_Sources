@@ -20,16 +20,19 @@ namespace WebAppTest.Models
 
         [Key]
         [StringLength(15)]
+        [Display(Name = "Usename")]
         public string UserName { get; set; }
 
         [Required]
         [StringLength(150)]
         public string Password { get; set; }
 
+        [Display(Name = "Admin State")]
         public bool AdminState { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Account Type")]
         public string AccountType { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

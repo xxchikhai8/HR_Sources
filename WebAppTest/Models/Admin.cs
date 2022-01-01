@@ -10,6 +10,7 @@ namespace WebAppTest.Models
     public partial class Admin
     {
         [StringLength(15)]
+        [Display(Name = "Admin ID")]
         public string AdminID { get; set; }
 
         [Required]
@@ -18,6 +19,7 @@ namespace WebAppTest.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Full Name")]
         public string AdminName { get; set; }
 
         public int Age { get; set; }

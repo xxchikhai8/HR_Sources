@@ -10,6 +10,7 @@ namespace WebAppTest.Models
     public partial class Staff
     {
         [StringLength(15)]
+        [Display(Name = "Staff ID")]
         public string StaffID { get; set; }
 
         [Required]
@@ -18,6 +19,7 @@ namespace WebAppTest.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Full Name")]
         public string StaffName { get; set; }
 
         public int Age { get; set; }

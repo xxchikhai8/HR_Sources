@@ -72,7 +72,6 @@ D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\bin\System
 D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\bin\Newtonsoft.Json.xml
 D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\bin\Antlr3.Runtime.pdb
 D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\obj\Debug\WebAppTest.csproj.AssemblyReference.cache
 D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\obj\Debug\WebAppTest.csproj.CoreCompileInputs.cache
 D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\obj\Debug\WebAppTest.csproj.CopyComplete
 D:\1670 - Application Development\Visual Studio\WebAppTest\WebAppTest\obj\Debug\WebAppTest.dll

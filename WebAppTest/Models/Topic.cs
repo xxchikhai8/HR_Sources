@@ -10,10 +10,12 @@ namespace WebAppTest.Models
     public partial class Topic
     {
         [StringLength(15)]
+        [Display(Name = "Topic ID")]
         public string TopicID { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Topic Name")]
         public string TopicName { get; set; }
 
         [Required]

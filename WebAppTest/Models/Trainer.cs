@@ -16,6 +16,7 @@ namespace WebAppTest.Models
         }
 
         [StringLength(15)]
+        [Display(Name = "Trainer ID")]
         public string TrainerID { get; set; }
 
         [Required]
@@ -24,6 +25,7 @@ namespace WebAppTest.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
         public int Age { get; set; }

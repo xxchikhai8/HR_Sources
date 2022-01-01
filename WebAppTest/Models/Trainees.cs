@@ -16,6 +16,7 @@ namespace WebAppTest.Models
 
         [Key]
         [StringLength(15)]
+        [Display(Name = "Trainee ID")]
         public string TraineeID { get; set; }
 
         [Required]
@@ -24,11 +25,14 @@ namespace WebAppTest.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Full Name")]
         public string TraineeName { get; set; }
 
         public int Age { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
         public DateTime DofB { get; set; }
 
         [Required]
@@ -37,6 +41,7 @@ namespace WebAppTest.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Education")]
         public string Edu { get; set; }
 
         public virtual Account Account { get; set; }

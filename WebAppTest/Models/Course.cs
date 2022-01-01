@@ -17,14 +17,17 @@ namespace WebAppTest.Models
         }
 
         [StringLength(15)]
+        [Display(Name = "Course ID")]
         public string CourseID { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Course Name")]
         public string CourseName { get; set; }
 
         [Column(TypeName = "text")]
         [Required]
+        [Display(Name = "Course Description")]
         public string CourseDes { get; set; }
 
         [Required]

@@ -16,14 +16,17 @@ namespace WebAppTest.Models
 
         [Key]
         [StringLength(15)]
+        [Display(Name = "Category ID")]
         public string CatID { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Category Name")]
         public string CatName { get; set; }
 
         [Column(TypeName = "text")]
         [Required]
+        [Display(Name = "Category Description")]
         public string CatDes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
