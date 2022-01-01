@@ -1,0 +1,40 @@
+﻿@model WebAppTest.Models.Account
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-box mx-auto">
+    <div class="login-logo">
+        <h2><strong>Login to <img src="~/production/images/fptlogo.png" alt="FPT Company Logo" style="width:80px;height:80px;" /> HR System </strong></h2>
+    </div>
+    <div class="card">
+        <div class="card-body login-card-body">
+            @using (Html.BeginForm())
+            {
+                <div class="input-group mb-4">
+                    <div class="input-group-append col-md-12">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", Placeholder = "Username" } })
+                    </div>
+                </div>
+                <div class="input-group mb-4" id="password1">
+                    <div class="input-group-append col-md-12">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", Placeholder = "Password" } })
+                    </div>
+                </div>
+                <style>
+                    #password1 input[type="text"] {
+                        -webkit-text-security: disc;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
