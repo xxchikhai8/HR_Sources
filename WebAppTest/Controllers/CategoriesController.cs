@@ -15,10 +15,12 @@ namespace WebAppTest.Controllers
         public ActionResult Index()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             var list = db.Categories.ToList<Categories>();
             return View(list);
         }
@@ -27,16 +29,23 @@ namespace WebAppTest.Controllers
         public ActionResult Create()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Create([Bind(Include = "CatID, CatName, CatDes")] Categories categories)
         {
+            var isUsernameAlreadyExists = db.Categories.Any(x => x.CatID == categories.CatID);
+            if (isUsernameAlreadyExists)
+            {
+                return View(categories);
+            }
             db.Categories.Add(categories);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -88,10 +97,12 @@ namespace WebAppTest.Controllers
         public ActionResult Edit(string id)
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             Categories categories = db.Categories.Find(id);
             return View(categories);
         }

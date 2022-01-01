@@ -17,10 +17,12 @@ namespace WebAppTest.Controllers
         public ActionResult Index()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             var list = db.Course.ToList<Course>();
             return View(list);
         }
@@ -28,10 +30,12 @@ namespace WebAppTest.Controllers
         public ActionResult Create()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
             return View();
         }
@@ -52,10 +56,13 @@ namespace WebAppTest.Controllers
         public ActionResult Edit(string id)
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
+            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
             Course course = db.Course.Find(id);
             return View(course);
         }
@@ -69,6 +76,7 @@ namespace WebAppTest.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
             return View(course);
         }
 

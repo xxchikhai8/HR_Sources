@@ -39,6 +39,16 @@ namespace WebAppTest.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isUsernameAlreadyExists = db.Staff.Any(x => x.UserName == staff.UserName);
+                if (isUsernameAlreadyExists)
+                {
+                    return View(staff);
+                }
+                var isUsernameAlreadyExist = db.Staff.Any(x => x.StaffID == staff.StaffID);
+                if (isUsernameAlreadyExist)
+                {
+                    return View(staff);
+                }
                 db.Staff.Add(staff);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -12,10 +12,8 @@ namespace WebAppTest.Controllers
 {
     public class AdminController : Controller
     {
-        //The declaration statement creates a variable for the database call
         HRContext db = new HRContext();
 
-        //Function function to display information of admins
         public ActionResult Index()
         {
             if (Session["AdminState"] == null || Session["AdminState"].ToString() != "1")
@@ -26,7 +24,6 @@ namespace WebAppTest.Controllers
             return View(list);
         }
 
-        //Function function to create new information of admin
         public ActionResult Create()
         {
             if (Session["AdminState"] == null || Session["AdminState"].ToString() != "1")
@@ -37,12 +34,21 @@ namespace WebAppTest.Controllers
             return View();
         }
 
-        //The function function handles the request to create a new administrator information
         [HttpPost]
         public ActionResult Create([Bind(Include = "AdminID,UserName,AdminName,Age,Email,Specialty,Address")] Admin admin)
         {
             if (ModelState.IsValid)
             {
+                var isUsernameAlreadyExists = db.Admin.Any(x => x.UserName == admin.UserName);
+                if (isUsernameAlreadyExists)
+                {
+                    return View(admin);
+                }
+                var isUsernameAlreadyExist = db.Admin.Any(x => x.AdminID == admin.AdminID);
+                if (isUsernameAlreadyExist)
+                {
+                    return View(admin);
+                }
                 db.Admin.Add(admin);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -51,7 +57,6 @@ namespace WebAppTest.Controllers
             return View(admin);
         }
 
-        //Function function to get administrator information to update information
         public ActionResult Edit(string id)
         {
             if (Session["AdminState"] == null || Session["AdminState"].ToString() != "1")
@@ -62,7 +67,6 @@ namespace WebAppTest.Controllers
             return View(admin);
         }
 
-        //The function function handles the administrator's information update request
         [HttpPost]
         public ActionResult Edit([Bind(Include = "AdminID,UserName,AdminName,Age,Email,Specialty,Address")] Admin admin)
         {
@@ -71,7 +75,6 @@ namespace WebAppTest.Controllers
             return RedirectToAction("Index");
         }
 
-        //The function function handles the request to delete administrator information
         [HttpGet]
         public ActionResult Delete(string id)
         {

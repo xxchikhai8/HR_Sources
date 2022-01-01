@@ -27,12 +27,16 @@ namespace WebAppTest.Controllers
         //Course Trainee Roll
         public ActionResult TraineeRoll()
         {
-            return View();
+            string Username = Session["Username"].ToString();
+            var acc = db.Trainees.Where(a => a.UserName == Username).FirstOrDefault();
+            var courseDetail = db.CourseDetail.Where(a => a.TraineeID == acc.TraineeID);
+            return View(courseDetail);
         }
 
         //Course Trainer Assigned
         public ActionResult TrainerRoll()
         {
+
             return View();
         }
 
@@ -50,13 +54,16 @@ namespace WebAppTest.Controllers
 
         public ActionResult Create()
         {
-            if (Session["AccountType"] == null || Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() != "Staff")
+            if (Session["AccountType"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() != "Staff")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName");
             ViewBag.TraineeID = new SelectList(db.Trainees, "TraineeID", "TraineeName");
-            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "TrainerName");
+            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "FullName");
             return View();
         }
 
@@ -69,19 +76,25 @@ namespace WebAppTest.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName");
+            ViewBag.TraineeID = new SelectList(db.Trainees, "TraineeID", "TraineeName");
+            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "TrainerName");
             return View(courseDetail);
         }
 
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id, string id2, string id3)
         {
-            if (Session["AccountType"] == null || Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() != "Staff")
+            if (Session["AccountType"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() != "Staff")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            CourseDetail courseDetail = db.CourseDetail.Find(id);
+            CourseDetail courseDetail = db.CourseDetail.Find(id, id2, id3);
             ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName", courseDetail.CourseID);
-            ViewBag.TraineeID = new SelectList(db.Trainees, "TraineeID", "UserName", courseDetail.TraineeID);
-            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "UserName", courseDetail.TrainerID);
+            ViewBag.TraineeID = new SelectList(db.Trainees, "TraineeID", "TraineeName", courseDetail.TraineeID);
+            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "FullName", courseDetail.TrainerID);
             return View(courseDetail);
         }
 
@@ -95,14 +108,21 @@ namespace WebAppTest.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName", courseDetail.CourseID);
-            ViewBag.TraineeID = new SelectList(db.Trainees, "TraineeID", "UserName", courseDetail.TraineeID);
-            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "UserName", courseDetail.TrainerID);
+            ViewBag.TraineeID = new SelectList(db.Trainees, "TraineeID", "TraineeName", courseDetail.TraineeID);
+            ViewBag.TrainerID = new SelectList(db.Trainer, "TrainerID", "FullName", courseDetail.TrainerID);
             return View(courseDetail);
         }
 
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id, string id2, string id3)
         {
-            CourseDetail courseDetail = db.CourseDetail.Find(id);
+            if (Session["AccountType"] == null)
+            {
+                if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() != "Staff")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            CourseDetail courseDetail = db.CourseDetail.Find(id, id2, id3);
             db.CourseDetail.Remove(courseDetail);
             db.SaveChanges();
             return RedirectToAction("Index");

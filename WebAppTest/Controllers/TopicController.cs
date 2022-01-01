@@ -17,10 +17,12 @@ namespace WebAppTest.Controllers
         public ActionResult Index()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             var list = db.Topic.ToList();
             return View(list);
         }
@@ -28,11 +30,13 @@ namespace WebAppTest.Controllers
         public ActionResult Create()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
-            ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseID");
+            }
+            ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName");
             return View();
         }
 
@@ -41,22 +45,30 @@ namespace WebAppTest.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isUsernameAlreadyExists = db.Topic.Any(x => x.TopicID == topic.TopicID);
+                if (isUsernameAlreadyExists)
+                {
+                    return View(topic);
+                }
                 db.Topic.Add(topic);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName", topic.CourseID);
+            ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName");
             return View(topic);
         }
 
         public ActionResult Edit(string id)
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             Topic topic = db.Topic.Find(id);
+            ViewBag.CourseID = new SelectList(db.Course, "CourseID", "CourseName", topic.CourseID);
             return View(topic);
         }
 

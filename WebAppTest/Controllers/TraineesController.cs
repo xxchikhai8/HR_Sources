@@ -17,10 +17,12 @@ namespace WebAppTest.Controllers
         public ActionResult Index()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             var list = db.Trainees.ToList<Trainees>();
             return View(list);
         }
@@ -28,10 +30,12 @@ namespace WebAppTest.Controllers
         public ActionResult Create()
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             ViewBag.UserName = new SelectList(db.Account.Where(a => a.AccountType == "Trainee"), "UserName", "UserName");
             return View();
         }
@@ -41,6 +45,16 @@ namespace WebAppTest.Controllers
         {
             if (ModelState.IsValid)
             {
+                var isUsernameAlreadyExists = db.Trainees.Any(x => x.UserName == trainees.UserName);
+                if (isUsernameAlreadyExists)
+                {
+                    return View(trainees);
+                }
+                var isUsernameAlreadyExist = db.Trainees.Any(x => x.TraineeID == trainees.TraineeID);
+                if (isUsernameAlreadyExist)
+                {
+                    return View(trainees);
+                }
                 db.Trainees.Add(trainees);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -52,10 +66,12 @@ namespace WebAppTest.Controllers
         public ActionResult Edit(string id)
         {
             if (Session["AccountType"] == null)
+            {
                 if (Session["AccountType"].ToString() != "Admin" || Session["AccountType"].ToString() == "Staff")
                 {
                     return RedirectToAction("Index", "Home");
                 }
+            }
             Trainees trainees = db.Trainees.Find(id);
             return View(trainees);
         }
