@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="HRContext-Web.config Connection String" description="HRContext Connection String used in web.config by the application to access the database." defaultValue="data source=210.245.90.239;initial catalog=acomptec_SQLKhai;user id=khaigc0801;password=9r96wP%n;MultipleActiveResultSets=True;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\1670\ -\ Application\ Development\\Visual\ Studio\\WebAppTest\\WebAppTest\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='HRContext']/@connectionString" />
+  </parameter>
+</parameters>

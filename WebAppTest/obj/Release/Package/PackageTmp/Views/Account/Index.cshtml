@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebAppTest.Models.Account>
+
+@{
+    ViewBag.Title = "Index Accounts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Acounts Data</h2>
+<div class="x_content">
+    <div class="row">
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-secondary" })
+        </p>
+        <div class="card-box table-responsive">
+            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Password)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.AdminState)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AccountType)
+                        </th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                     {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.Password)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AdminState)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccountType)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.UserName }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.UserName }, new { onclick = "return confirm('The operation will delete other information! You definitely want to delete?');" })
+                            </td>
+                        </tr>
+                     }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

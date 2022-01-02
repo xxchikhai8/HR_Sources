@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebAppTest.Models.Trainees>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Trainees Data</h2>
+<div class="x_content">
+    <div class="row">
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-secondary" })
+        </p>
+        <div class="card-box table-responsive">
+            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TraineeID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Account.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TraineeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DofB)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Edu)
+                        </th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TraineeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Account.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TraineeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Age)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DofB)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Edu)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.TraineeID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.TraineeID }, new { onclick = "return confirm('The operation will delete information! You definitely want to delete this Trainee Information?');" })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

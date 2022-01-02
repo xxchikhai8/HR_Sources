@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Human Resource | FPT</title>
+
+    <!-- Bootstrap -->
+    <link href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/vendors/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+    @{ 
+        if (HttpContext.Current.Session["Username"] == null)
+        {
+            Response.Redirect("~/Account/Login");
+        }
+    }
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="@Url.Action("Index", "Home")" class="site_title">
+                            <i class="fa fa-paw"></i>
+                            <span>HR | FPT</span>
+                        </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="~/production/images/img1.jpg" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>@Session["Fullname"]</h2>
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <!--<h3>General</h3> -->
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Home</a>
+                                </li>
+                                @{
+                                    if (Session["AdminState"] != null && Session["AdminState"].ToString() == "1")
+                                    {
+                                        <li>
+                                            <a><i class="fas fa-table"></i> Data <span class="fa fa-chevron-down"></span> </a>
+                                            <ul class="nav child_menu">
+                                                <li><a href="@Url.Action("Index", "Account")"> Account</a></li>
+                                                <li><a href="@Url.Action("Index", "Admin")"> Admin</a></li>
+                                                <li><a href="@Url.Action("Index", "Staff")"> Staff</a></li>
+                                                <li><a href="@Url.Action("Index", "Trainer")"> Trainer</a></li>
+                                                <li><a href="@Url.Action("Index", "Trainees")"> Trainees</a></li>
+                                                <li><a href="@Url.Action("Index", "Categories")"> Categories</a></li>
+                                                <li><a href="@Url.Action("Index", "Course")"> Course</a></li>
+                                                <li><a href="@Url.Action("Index", "Topic")"> Topic</a></li>
+                                                <li><a href="@Url.Action("Index", "CourseDetail")"> Course Detail</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else if (Session["AdminState"] != null && Session["AdminState"].ToString() == "0" && Session["AccountType"] != null && Session["AccountType"].ToString() == "Admin")
+                                    {
+                                        <li>
+                                            <a><i class="fas fa-table"></i> Data <span class="fa fa-chevron-down"></span> </a>
+                                            <ul class="nav child_menu">
+                                                <li><a href="@Url.Action("Index", "Staff")"> Staff</a></li>
+                                                <li><a href="@Url.Action("Index", "Trainer")"> Trainer</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else if (Session["AccountType"] != null && Session["AccountType"].ToString() == "Staff")
+                                    {
+                                        <li>
+                                            <a><i class="fas fa-table"></i> Data <span class="fa fa-chevron-down"></span> </a>
+                                            <ul class="nav child_menu">
+                                                <li><a href="@Url.Action("Index", "Trainer")"> Trainer</a></li>
+                                                <li><a href="@Url.Action("Index", "Trainees")"> Trainees</a></li>
+                                                <li><a href="@Url.Action("Index", "Categories")"> Categories</a></li>
+                                                <li><a href="@Url.Action("Index", "Course")"> Course</a></li>
+                                                <li><a href="@Url.Action("Index", "Topic")"> Topic</a></li>
+                                                <li><a href="@Url.Action("Index", "CourseDetail")"> Course Detail</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else if (Session["AccountType"] != null && Session["AccountType"].ToString() == "Trainer")
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "CourseDetail")"><i class="fas fa-table"></i> Course </a>
+                                        </li>
+                                    }
+                                    else if (Session["AccountType"] != null && Session["AccountType"].ToString() == "Trainee")
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "CourseDetail")"><i class="fas fa-table"></i> Course </a>
+                                        </li>
+                                        }
+                                    }
+                                <li>
+                                    <a href="@Url.Action("About", "Home")"><i class="fas fa-info-circle"></i> About</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Contact", "Home")"><i class="fas fa-address-book"></i> Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            @if (HttpContext.Current.Session["Username"] != null)
+                            {
+                                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                        <img src="~/production/images/img1.jpg" alt="">@Session["Username"]
+                                    </a>
+                                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                        @if (HttpContext.Current.Session["AccountType"].ToString() == "Trainer")
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("Profiles", "Trainer")">Profile</a>
+                                        }
+                                        <a class="dropdown-item" href="@Url.Action("Logout", "Account")">Logout</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <!-- FastClick -->
+    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="~/vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="~/build/js/custom.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
